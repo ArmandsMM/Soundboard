@@ -1,5 +1,7 @@
-﻿using System;
+﻿using Sounboard.model;
+using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
@@ -22,9 +24,49 @@ namespace Sounboard
     /// </summary>
     public sealed partial class MainPage : Page
     {
+        private ObservableCollection<Sound> Sounds;
+        private List<MenuItem> MenuItems;
         public MainPage()
         {
             this.InitializeComponent();
+            Sounds = new ObservableCollection<Sound>();
+            SoundManager.GetAllSounds(Sounds);
+
+            MenuItems = new List<MenuItem>();
+            MenuItems.Add(new MenuItem { IconFile = "/Assets/Icons/animals.png", Category = SoundCategory.Animals});
+            MenuItems.Add(new MenuItem { IconFile = "/Assets/Icons/cartoon.png", Category = SoundCategory.Cartoons });
+            MenuItems.Add(new MenuItem { IconFile = "/Assets/Icons/taunt.png", Category = SoundCategory.Animals });
+            MenuItems.Add(new MenuItem { IconFile = "/Assets/Icons/warning.png", Category = SoundCategory.Warnings });
+        }
+
+        private void hamburgerbutton_Click(object sender, RoutedEventArgs e)
+        {
+            splitViewName.IsPaneOpen = !splitViewName.IsPaneOpen;
+        }
+
+        private void backButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void searchAutoSuggestBox_TextChanged(AutoSuggestBox sender, AutoSuggestBoxTextChangedEventArgs args)
+        {
+
+        }
+
+        private void searchAutoSuggestBox_QuerySubmitted(AutoSuggestBox sender, AutoSuggestBoxQuerySubmittedEventArgs args)
+        {
+
+        }
+
+        private void menuItemsListView_ItemClick(object sender, ItemClickEventArgs e)
+        {
+
+        }
+
+        private void soundGridview_ItemClick(object sender, ItemClickEventArgs e)
+        {
+
         }
     }
 }
