@@ -17,7 +17,15 @@
         <RelativePanel>
             <Button Name="hamburgerbutton" RelativePanel.AlignLeftWithPanel="True" Click="hamburgerbutton_Click" FontFamily="Segoe MDL2 Assets" FontSize="20" Content="&#xE700;" Height="45" Width="45" />
             <Button Name="backButton" FontFamily="Segoe MDL2 Assets" Content="&#xE0A6;" Click="backButton_Click"  FontSize="20" RelativePanel.RightOf="hamburgerbutton" Height="45" Width="45" />
-            <AutoSuggestBox Name="searchAutoSuggestBox" PlaceholderText="search for sounds" Width="200" QueryIcon="Find" TextChanged="searchAutoSuggestBox_TextChanged" QuerySubmitted="searchAutoSuggestBox_QuerySubmitted" RelativePanel.AlignRightWithPanel="True" />
+            <AutoSuggestBox Name="searchAutoSuggestBox"
+                            PlaceholderText="search for sounds"
+                            Width="200"
+                            QueryIcon="Find"
+                            TextChanged="searchAutoSuggestBox_TextChanged"
+                            QuerySubmitted="searchAutoSuggestBox_QuerySubmitted"
+                            RelativePanel.AlignRightWithPanel="True"
+                            ItemsSource="{x:Bind Sounds}"
+                            Margin="0,0,10,0"/>
         </RelativePanel>
 
         <SplitView Grid.Row="1" Name="splitViewName" OpenPaneLength="200" CompactPaneLength="45" DisplayMode="CompactOverlay">
@@ -27,8 +35,8 @@
                         <DataTemplate x:DataType="data:MenuItem">
                             
                             <StackPanel Orientation="Horizontal">
-                                <Image Source="{x:Bind IconFile}" Height="45" Width="45"/>
-                                <TextBlock Text="{x:Bind Category}" FontSize="18" Margin="10,0,0,0"/>
+                                <Image Source="{x:Bind IconFile}" Height="35" Width="35" Margin="-10,10,0,15"/>
+                                <TextBlock Text="{x:Bind Category}" FontSize="18" Margin="10,0,0,0" VerticalAlignment="Center"/>
                             </StackPanel>
                             
                         </DataTemplate>
@@ -36,7 +44,7 @@
                 </ListView>
             </SplitView.Pane>
             <SplitView.Content>
-                <Grid>
+                <Grid Margin="20,20,20,0">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="auto"/>
                         <RowDefinition Height="*"/>
@@ -46,13 +54,23 @@
 
                     <TextBlock Name="CategoryTextBlock" Text="All Sounds" FontSize="24" />
 
-                    <GridView Grid.Row="1" Name="soundGridview" SelectionMode="None" IsItemClickEnabled="True" ItemClick="soundGridview_ItemClick" ItemsSource="{x:Bind Sounds}">
+                    <GridView Grid.Row="1"
+                              Name="soundGridview"
+                              SelectionMode="None" 
+                              IsItemClickEnabled="True"
+                              ItemClick="soundGridview_ItemClick"
+                              ItemsSource="{x:Bind Sounds}"
+                              AllowDrop="True"
+                              Drop="soundGridview_Drop"
+                              DragOver="soundGridview_DragOver">
                         <GridView.ItemTemplate>
                             <DataTemplate x:DataType="data:Sound">
                                 <Image Name="myImage" Height="112" Width="101" Source="{x:Bind ImageFile}"/>
                             </DataTemplate>
                         </GridView.ItemTemplate>
                     </GridView>
+                    
+                    
                 </Grid>
             </SplitView.Content>
         </SplitView>

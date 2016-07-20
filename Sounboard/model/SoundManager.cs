@@ -24,6 +24,14 @@ namespace Sounboard.model
             filteredSounds.ForEach(p => sounds.Add(p));
         }
 
+        public static void getSoundsByName(ObservableCollection<Sound> sounds, string name)
+        {
+            var allsounds = getSounds();
+            var filteredSounds = allsounds.Where(p => p.Name == name).ToList();
+            sounds.Clear();
+            filteredSounds.ForEach(p => sounds.Add(p));
+        }
+
         private static List<Sound> getSounds()
         {
             var sounds = new List<Sound>();
